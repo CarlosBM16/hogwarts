@@ -1,11 +1,13 @@
 package com.carlos.hogwarts.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
 import com.carlos.hogwarts.dtos.EstudianteDTO;
 import com.carlos.hogwarts.mapper.EstudianteMapper;
+import com.carlos.hogwarts.model.Estudiante;
 import com.carlos.hogwarts.repository.EstudianteRepository;
 import com.carlos.hogwarts.service.EstudianteService;
 
@@ -23,5 +25,13 @@ public class EstudianteServiceImpl implements EstudianteService {
             .stream()
             .map(estudianteMapper::toDto)
             .toList();
+    }
+
+    @Override 
+    public EstudianteDTO obtenerEstudiantePorId(Long id) {
+        Estudiante estudiante = estudianteRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Estudiante no encontrado con id: " + id));
+
+        return estudianteMapper.toDto(estudiante);
     }
 }
