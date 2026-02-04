@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.carlos.hogwarts.dtos.request.create.EstudianteCreateDTO;
+import com.carlos.hogwarts.dtos.request.update.EstudianteUpdateDTO;
 import com.carlos.hogwarts.dtos.response.AsignaturaDTO;
 import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 import com.carlos.hogwarts.model.Estudiante;
@@ -76,5 +77,13 @@ public class EstudianteMapper {
         estudiante.setMascota(mascotaMapper.toEntity(dto.getMascota()));
         
         return estudiante;
+    }
+
+    public void updateEntityFromDto(EstudianteUpdateDTO dto, Estudiante estudiante) {
+        if (dto == null || estudiante == null) return;
+
+        estudiante.setAnyo_curso(dto.getAnyoCurso());
+        estudiante.setFecha_nacimiento(dto.getFechaNacimiento());
+        mascotaMapper.updateEntityFromDto(dto.getMascota(), estudiante.getMascota());
     }
 }

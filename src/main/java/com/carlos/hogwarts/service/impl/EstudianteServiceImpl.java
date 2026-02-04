@@ -6,12 +6,16 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 import com.carlos.hogwarts.dtos.request.create.EstudianteCreateDTO;
+import com.carlos.hogwarts.dtos.request.update.EstudianteUpdateDTO;
 import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 import com.carlos.hogwarts.mapper.EstudianteMapper;
 import com.carlos.hogwarts.model.Estudiante;
 import com.carlos.hogwarts.repository.CasaRepository;
 import com.carlos.hogwarts.repository.EstudianteRepository;
 import com.carlos.hogwarts.service.EstudianteService;
+
+import jakarta.transaction.Transactional;
+
 import com.carlos.hogwarts.model.Casa;
 
 import lombok.RequiredArgsConstructor;
@@ -40,13 +44,27 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
+    @Transactional
     public EstudianteDTO crearEstudiante(EstudianteCreateDTO dto) {
         Estudiante estudiante = estudianteMapper.toEntity(dto);
 
         estudiante.getMascota().setEstudiante(estudiante);
 
         Estudiante estudianteGuardado = estudianteRepository.save(estudiante);
+
         return estudianteMapper.toDto(estudianteGuardado);
-        
     }
+
+    @Override
+    @Transactional
+    public EstudianteDTO actualizarEstudiante(Long id, EstudianteUpdateDTO dto) {
+        Estudiante estudianteExistente = estudianteRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Estudiante no encontrado con id: " + id));
+
+        estudianteMapper.updateEntityFromDto(dto, estudianteExistente);
+        Estudiante estudianteActualizado = estudianteRepository.save(estudianteExistente);
+
+        return estudianteMapper.toDto(estudianteActualizado);
+    }
+
 }

@@ -3,6 +3,8 @@ package com.carlos.hogwarts.mapper;
 import org.springframework.stereotype.Component;
 
 import com.carlos.hogwarts.dtos.request.create.MascotaCreateDTO;
+import com.carlos.hogwarts.dtos.request.update.EstudianteUpdateDTO;
+import com.carlos.hogwarts.dtos.request.update.MascotaUpdateDto;
 import com.carlos.hogwarts.dtos.response.MascotaDTO;
 import com.carlos.hogwarts.model.Mascota;
 
@@ -33,5 +35,12 @@ public class MascotaMapper {
         mascota.setEspecie(dto.getEspecie());
 
         return mascota;
+    }
+
+    public void updateEntityFromDto(MascotaUpdateDto dto, Mascota mascota) {
+        if (dto == null || mascota == null) return;
+
+        mascota.setNombre(dto.getNombre());
+        mascota.setEspecie(dto.getEspecie());
     }
 }
