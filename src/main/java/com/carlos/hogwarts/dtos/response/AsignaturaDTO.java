@@ -1,4 +1,4 @@
-package com.carlos.hogwarts.dtos;
+package com.carlos.hogwarts.dtos.response;
 
 import lombok.Data;
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.carlos.hogwarts.dtos.EstudianteDTO;
+import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 import com.carlos.hogwarts.service.EstudianteService;
 
 import lombok.RequiredArgsConstructor;

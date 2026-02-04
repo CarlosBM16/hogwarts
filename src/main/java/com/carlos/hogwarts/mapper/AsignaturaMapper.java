@@ -1,6 +1,6 @@
 package com.carlos.hogwarts.mapper;
 
-import com.carlos.hogwarts.dtos.AsignaturaDTO;
+import com.carlos.hogwarts.dtos.response.AsignaturaDTO;
 import com.carlos.hogwarts.model.Asignatura;
 
 public class AsignaturaMapper {

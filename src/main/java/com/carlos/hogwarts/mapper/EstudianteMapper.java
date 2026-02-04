@@ -5,12 +5,19 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.carlos.hogwarts.dtos.AsignaturaDTO;
-import com.carlos.hogwarts.dtos.EstudianteDTO;
+import com.carlos.hogwarts.dtos.request.create.EstudianteCreateDTO;
+import com.carlos.hogwarts.dtos.response.AsignaturaDTO;
+import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 import com.carlos.hogwarts.model.Estudiante;
+import com.carlos.hogwarts.repository.CasaRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Component
 public class EstudianteMapper {
+    private final CasaRepository casaRepository;
+
     public EstudianteDTO toDto(Estudiante estudiante) {
         EstudianteDTO dto = new EstudianteDTO();
 
@@ -37,5 +44,21 @@ public class EstudianteMapper {
         dto.setAsignaturas(listaAsignaturas);
 
         return dto;
+    }
+
+    public Estudiante toEntity(EstudianteCreateDTO dto) {
+        if (dto == null) return null;
+
+        Estudiante estudiante = new Estudiante();
+        estudiante.setNombre(dto.getNombre());
+        estudiante.setApellido(dto.getApellido());
+        estudiante.setAnyo_curso(dto.getAnyoCurso());
+        estudiante.setCasa(
+            casaRepository.findById(
+                estudiante.getCasa()
+                          .getId_casa()
+            ).orElseThrow(() -> new RuntimeException("La casa no se ha encontrado")));
+        estudiante.setMascota(dto.getMascota());
+        return estudiante;
     }
 }

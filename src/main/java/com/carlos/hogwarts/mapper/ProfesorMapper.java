@@ -1,6 +1,6 @@
 package com.carlos.hogwarts.mapper;
 
-import com.carlos.hogwarts.dtos.ProfesorDTO;
+import com.carlos.hogwarts.dtos.response.ProfesorDTO;
 import com.carlos.hogwarts.model.Profesor;
 
 public class ProfesorMapper {

@@ -1,6 +1,6 @@
 package com.carlos.hogwarts.mapper;
 
-import com.carlos.hogwarts.dtos.CasaDTO;
+import com.carlos.hogwarts.dtos.response.CasaDTO;
 import com.carlos.hogwarts.model.Casa;
 
 public class CasaMapper {
