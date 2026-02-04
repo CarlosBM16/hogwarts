@@ -29,7 +29,6 @@ public class EstudianteController {
         return respuesta;
     }
 
-    // Este es el método que devuelve la lista completa
     @GetMapping
     public ResponseEntity<List<EstudianteDTO>> obtenerTodos() {
         List<EstudianteDTO> estudiantes = estudianteService.obtenerTodos();
@@ -38,5 +37,11 @@ public class EstudianteController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(estudiantes);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EstudianteDTO> obtenerEstudiantePorId(Long id) {
+        EstudianteDTO dto = estudianteService.obtenerEstudiantePorId(id);
+        return ResponseEntity.ok(dto);
     }
 }

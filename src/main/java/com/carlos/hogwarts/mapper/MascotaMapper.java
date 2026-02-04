@@ -4,8 +4,14 @@ import com.carlos.hogwarts.dtos.request.create.MascotaCreateDTO;
 import com.carlos.hogwarts.dtos.response.MascotaDTO;
 import com.carlos.hogwarts.model.Mascota;
 
+import lombok.Data;
+
+@Component
+@Data
 public class MascotaMapper {
     public MascotaDTO toDto(Mascota mascota) {
+        if (mascota == null) return null;
+        
         MascotaDTO dto = new MascotaDTO();
         
         dto.setId(mascota.getId_mascota());

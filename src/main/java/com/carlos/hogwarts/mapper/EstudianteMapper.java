@@ -15,18 +15,22 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
+@Data
+@RequiredArgsConstructor
 public class EstudianteMapper {
     private final CasaRepository casaRepository;
 
     public EstudianteDTO toDto(Estudiante estudiante) {
+        if (estudiante == null) return null;
+
         EstudianteDTO dto = new EstudianteDTO();
 
-        dto.setId(estudiante.getId_estudiante());
+        dto.setId(estudiante.getId());
         dto.setNombre(estudiante.getNombre());
         dto.setAnyoCurso(estudiante.getAnyo_curso());
         dto.setFechaNacimiento(estudiante.getFecha_nacimiento().toLocalDate());
         dto.setCasa(estudiante.getCasa().getNombre());
-        dto.setMascota(new MascotaMapper().toDto(estudiante.getMascota()));
+        dto.setMascota(mascotaMapper.toDto(estudiante.getMascota()));
         
         List<AsignaturaDTO> listaAsignaturas = estudiante.getAsignaturas().stream()
             .map(asignatura -> {
