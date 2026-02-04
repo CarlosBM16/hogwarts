@@ -1,7 +1,9 @@
 package com.carlos.hogwarts.dtos.request.create;
 
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -14,7 +16,4 @@ public class MascotaCreateDTO {
     @NotBlank(message = "La especie de la mascota no puede estar vacío")
     @Size(max = 50, message = "La especie mascota no puede superar los 50 caracteres")
     private String especie;
-
-    @Valid
-    private EstudianteCreateDTO estudiante;
 }

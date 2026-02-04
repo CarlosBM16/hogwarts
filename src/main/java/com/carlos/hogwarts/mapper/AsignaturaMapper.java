@@ -1,8 +1,16 @@
 package com.carlos.hogwarts.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.carlos.hogwarts.dtos.response.AsignaturaDTO;
 import com.carlos.hogwarts.model.Asignatura;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Component
+@Data
 public class AsignaturaMapper {
     public AsignaturaDTO toDto(Asignatura asignatura) {
         AsignaturaDTO dto = new AsignaturaDTO();

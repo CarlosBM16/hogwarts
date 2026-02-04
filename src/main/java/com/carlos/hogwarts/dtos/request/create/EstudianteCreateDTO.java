@@ -15,14 +15,14 @@ public class EstudianteCreateDTO {
     @Size(max = 50, message = "El apellido de estudiante no puede superar los 50 caracteres")
     private String apellido;
 
-    @NotBlank(message = "El año no puede estar vacío")
+    @NotNull(message = "El año del curso es obligatorio")
     private int anyoCurso;
 
-    @NotBlank(message = "La fecha no puede estar vacía")
+    @NotNull(message = "La fecha es obligatoria")
     private LocalDate fechaNacimiento;
 
-    @NotBlank(message = "El id de la casa no puede estar vacío")
-    private int idCasa;
+    @NotNull(message = "El id de la casa es obligatorio")
+    private Long casaId;
 
     @Valid
     @NotNull(message = "La mascota es obligatoria")

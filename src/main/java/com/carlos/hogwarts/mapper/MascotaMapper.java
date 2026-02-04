@@ -1,11 +1,15 @@
 package com.carlos.hogwarts.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.carlos.hogwarts.dtos.request.create.MascotaCreateDTO;
 import com.carlos.hogwarts.dtos.response.MascotaDTO;
 import com.carlos.hogwarts.model.Mascota;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Component
 @Data
 public class MascotaMapper {

@@ -11,14 +11,15 @@ import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 import com.carlos.hogwarts.model.Estudiante;
 import com.carlos.hogwarts.repository.CasaRepository;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
 @Data
-@RequiredArgsConstructor
 public class EstudianteMapper {
     private final CasaRepository casaRepository;
+    private final MascotaMapper mascotaMapper;
 
     public EstudianteDTO toDto(Estudiante estudiante) {
         if (estudiante == null) return null;
@@ -28,11 +29,12 @@ public class EstudianteMapper {
         dto.setId(estudiante.getId());
         dto.setNombre(estudiante.getNombre());
         dto.setAnyoCurso(estudiante.getAnyo_curso());
-        dto.setFechaNacimiento(estudiante.getFecha_nacimiento().toLocalDate());
+        dto.setFechaNacimiento(estudiante.getFecha_nacimiento());
         dto.setCasa(estudiante.getCasa().getNombre());
         dto.setMascota(mascotaMapper.toDto(estudiante.getMascota()));
         
-        List<AsignaturaDTO> listaAsignaturas = estudiante.getAsignaturas().stream()
+        if (dto.getAsignaturas() != null) {
+            List<AsignaturaDTO> listaAsignaturas = estudiante.getAsignaturas().stream()
             .map(asignatura -> {
                 AsignaturaDTO dto2 = new AsignaturaDTO();
                 dto2.setId(asignatura.getId_asignatura());
@@ -45,7 +47,12 @@ public class EstudianteMapper {
             })
             .collect(Collectors.toList());
 
-        dto.setAsignaturas(listaAsignaturas);
+            dto.setAsignaturas(listaAsignaturas);
+        } else {
+            dto.setAsignaturas(null);
+        }
+
+        
 
         return dto;
     }
@@ -57,12 +64,17 @@ public class EstudianteMapper {
         estudiante.setNombre(dto.getNombre());
         estudiante.setApellido(dto.getApellido());
         estudiante.setAnyo_curso(dto.getAnyoCurso());
-        estudiante.setCasa(
-            casaRepository.findById(
-                estudiante.getCasa()
-                          .getId_casa()
-            ).orElseThrow(() -> new RuntimeException("La casa no se ha encontrado")));
-        estudiante.setMascota(dto.getMascota());
+        estudiante.setFecha_nacimiento(dto.getFechaNacimiento());
+
+        if (dto.getCasaId() != null) {
+            estudiante.setCasa(
+                casaRepository.findById(dto.getCasaId())
+                .orElseThrow(() -> new RuntimeException("La casa no se ha encontrado"))     
+            );
+        }
+
+        estudiante.setMascota(mascotaMapper.toEntity(dto.getMascota()));
+        
         return estudiante;
     }
 }

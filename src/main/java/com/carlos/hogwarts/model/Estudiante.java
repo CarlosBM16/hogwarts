@@ -1,12 +1,15 @@
 package com.carlos.hogwarts.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,9 +46,9 @@ public class Estudiante {
     private int anyo_curso;
 
     @Column(name = "fecha_nacimiento")
-    private Date fecha_nacimiento;
+    private LocalDate fecha_nacimiento;
 
-    @OneToOne(mappedBy = "estudiante")
+    @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Mascota mascota;
 

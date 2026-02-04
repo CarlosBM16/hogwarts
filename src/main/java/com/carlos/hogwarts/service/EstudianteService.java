@@ -8,4 +8,5 @@ import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 public interface EstudianteService {
     List<EstudianteDTO> obtenerTodos();
     EstudianteDTO crearEstudiante(EstudianteCreateDTO dto);
+    EstudianteDTO obtenerEstudiantePorId(Long id);
 }
