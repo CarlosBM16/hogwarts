@@ -9,7 +9,9 @@ import com.carlos.hogwarts.dtos.request.create.EstudianteCreateDTO;
 import com.carlos.hogwarts.dtos.request.update.EstudianteUpdateDTO;
 import com.carlos.hogwarts.dtos.response.EstudianteDTO;
 import com.carlos.hogwarts.mapper.EstudianteMapper;
+import com.carlos.hogwarts.mapper.MascotaMapper;
 import com.carlos.hogwarts.model.Estudiante;
+import com.carlos.hogwarts.model.Mascota;
 import com.carlos.hogwarts.repository.CasaRepository;
 import com.carlos.hogwarts.repository.EstudianteRepository;
 import com.carlos.hogwarts.service.EstudianteService;
@@ -23,6 +25,7 @@ public class EstudianteServiceImpl implements EstudianteService {
     private final EstudianteRepository estudianteRepository;
     private final EstudianteMapper estudianteMapper;
     private final CasaRepository casaRepository;
+    private final MascotaMapper mascotaMapper;
 
     @Override
     public List<EstudianteDTO> obtenerTodos() {
@@ -62,8 +65,16 @@ public class EstudianteServiceImpl implements EstudianteService {
 
         estudianteMapper.updateEntityFromDto(dto, estudianteExistente);
 
-        if (estudianteExistente.getMascota() != null) {
-            estudianteExistente.getMascota().setEstudiante(estudianteExistente);
+        if (dto.getMascota() != null) {
+            if (estudianteExistente.getMascota() == null) {
+                Mascota nuevaMascota = new Mascota();
+                mascotaMapper.updateEntityFromDto(dto.getMascota(), nuevaMascota);
+                
+                nuevaMascota.setEstudiante(estudianteExistente); 
+                estudianteExistente.setMascota(nuevaMascota); 
+            } else {
+                mascotaMapper.updateEntityFromDto(dto.getMascota(), estudianteExistente.getMascota());
+            }
         }
 
         Estudiante estudianteActualizado = estudianteRepository.save(estudianteExistente);
