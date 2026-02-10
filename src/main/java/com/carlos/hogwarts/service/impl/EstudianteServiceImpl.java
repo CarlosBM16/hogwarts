@@ -15,9 +15,6 @@ import com.carlos.hogwarts.repository.EstudianteRepository;
 import com.carlos.hogwarts.service.EstudianteService;
 
 import jakarta.transaction.Transactional;
-
-import com.carlos.hogwarts.model.Casa;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -48,7 +45,9 @@ public class EstudianteServiceImpl implements EstudianteService {
     public EstudianteDTO crearEstudiante(EstudianteCreateDTO dto) {
         Estudiante estudiante = estudianteMapper.toEntity(dto);
 
-        estudiante.getMascota().setEstudiante(estudiante);
+        if (estudiante.getMascota() != null) {
+            estudiante.getMascota().setEstudiante(estudiante);
+        }
 
         Estudiante estudianteGuardado = estudianteRepository.save(estudiante);
 
@@ -62,6 +61,11 @@ public class EstudianteServiceImpl implements EstudianteService {
             .orElseThrow(() -> new NoSuchElementException("Estudiante no encontrado con id: " + id));
 
         estudianteMapper.updateEntityFromDto(dto, estudianteExistente);
+
+        if (estudianteExistente.getMascota() != null) {
+            estudianteExistente.getMascota().setEstudiante(estudianteExistente);
+        }
+
         Estudiante estudianteActualizado = estudianteRepository.save(estudianteExistente);
 
         return estudianteMapper.toDto(estudianteActualizado);

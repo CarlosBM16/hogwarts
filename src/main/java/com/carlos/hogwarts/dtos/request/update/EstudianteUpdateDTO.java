@@ -15,6 +15,5 @@ public class EstudianteUpdateDTO {
     private LocalDate fechaNacimiento;
 
     @Valid
-    @NotNull(message = "La mascota es obligatoria.")
     private MascotaUpdateDto mascota;
 }
