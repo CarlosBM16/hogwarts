@@ -46,7 +46,7 @@ public class Estudiante {
     @Column(name = "fecha_nacimiento")
     private LocalDate fecha_nacimiento;
 
-    @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL, optional = true)
+    @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
     @JsonManagedReference
     private Mascota mascota;
 

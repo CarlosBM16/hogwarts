@@ -11,4 +11,5 @@ public interface EstudianteService {
     EstudianteDTO crearEstudiante(EstudianteCreateDTO dto);
     EstudianteDTO obtenerEstudiantePorId(Long id);
     EstudianteDTO actualizarEstudiante(Long id, EstudianteUpdateDTO dto);
+    void eliminarEstudiante(Long id);
 }
