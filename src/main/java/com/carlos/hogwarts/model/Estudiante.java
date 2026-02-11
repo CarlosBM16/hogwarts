@@ -3,6 +3,8 @@ package com.carlos.hogwarts.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.SoftDelete;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -23,6 +25,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "estudiante")
+@SoftDelete
 public class Estudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
