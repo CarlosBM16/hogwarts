@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class EstudianteMapper {
     private final CasaRepository casaRepository;
     private final MascotaMapper mascotaMapper;
+    private final EstudianteAsignaturaMapper estudianteAsignaturaMapper;
 
     public EstudianteDTO toDto(Estudiante estudiante) {
         if (estudiante == null) return null;
@@ -32,23 +33,19 @@ public class EstudianteMapper {
         dto.setAnyoCurso(estudiante.getAnyo_curso());
         dto.setFechaNacimiento(estudiante.getFecha_nacimiento());
         dto.setCasa(estudiante.getCasa().getNombre());
-        dto.setMascota(mascotaMapper.toDto(estudiante.getMascota()));
+
+        if (estudiante.getMascota() != null) {
+            dto.setMascota(mascotaMapper.toDto(estudiante.getMascota()));
+        } else {
+            dto.setMascota(null);
+        }
+ 
         
-        if (dto.getAsignaturas() != null) {
-            List<AsignaturaDTO> listaAsignaturas = estudiante.getAsignaturas().stream()
-            .map(asignatura -> {
-                AsignaturaDTO dto2 = new AsignaturaDTO();
-                dto2.setId(asignatura.getId_asignatura());
-                dto2.setNombre(asignatura.getNombre());
-                dto2.setAula(asignatura.getAula());
-                dto2.setObligatoria(asignatura.isObligatoria());
-                dto2.setProfesor(asignatura.getProfesor().getNombre());
-
-                return dto2;
-            })
-            .collect(Collectors.toList());
-
-            dto.setAsignaturas(listaAsignaturas);
+        if (estudiante.getCalificaciones() != null) {
+            dto.setAsignaturas(estudiante.getCalificaciones().stream()
+                .map(a -> estudianteAsignaturaMapper.toDto(a))
+                .toList()
+            );
         } else {
             dto.setAsignaturas(null);
         }

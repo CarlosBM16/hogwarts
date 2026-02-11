@@ -11,7 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor 
@@ -30,6 +32,7 @@ public class Mascota {
 
     @OneToOne
     @JoinColumn(name = "id_estudiante", nullable = false)
-    @JsonBackReference
+    @EqualsAndHashCode.Exclude  // <--- INDISPENSABLE
+    @ToString.Exclude           // <--- EVITA ERRORES EN CONSOLA
     private Estudiante estudiante;
 }

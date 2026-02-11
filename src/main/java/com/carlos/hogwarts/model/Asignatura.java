@@ -16,7 +16,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor 
@@ -37,7 +39,8 @@ public class Asignatura {
     private boolean obligatoria;
 
     @OneToOne(mappedBy = "asignatura")
-    @JsonBackReference
+    @EqualsAndHashCode.Exclude  // <--- INDISPENSABLE
+    @ToString.Exclude           // <--- EVITA ERRORES EN CONSOLA
     private Profesor profesor;
 
     @ManyToMany

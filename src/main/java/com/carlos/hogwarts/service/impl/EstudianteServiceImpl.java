@@ -28,6 +28,7 @@ public class EstudianteServiceImpl implements EstudianteService {
     private final MascotaMapper mascotaMapper;
 
     @Override
+    @Transactional
     public List<EstudianteDTO> obtenerTodos() {
         return estudianteRepository.findAll()
             .stream()
@@ -74,6 +75,11 @@ public class EstudianteServiceImpl implements EstudianteService {
                 estudianteExistente.setMascota(nuevaMascota); 
             } else {
                 mascotaMapper.updateEntityFromDto(dto.getMascota(), estudianteExistente.getMascota());
+            }
+        } else {
+            if (estudianteExistente.getMascota() != null) {
+                estudianteExistente.getMascota().setEstudiante(null);
+                estudianteExistente.setMascota(null);
             }
         }
 

@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor 
@@ -29,10 +31,11 @@ public class Profesor {
 
     @OneToOne
     @JoinColumn(name = "id_asignatura")
-    @JsonManagedReference
+    @EqualsAndHashCode.Exclude  // <--- INDISPENSABLE
+    @ToString.Exclude           // <--- EVITA ERRORES EN CONSOLA
     private Asignatura asignatura;
 
     @OneToOne(mappedBy = "jefe")
-    @JsonBackReference
+    @EqualsAndHashCode.Exclude  // <--- TAMBIÉN AQUÍ
     private Casa casa;
 }

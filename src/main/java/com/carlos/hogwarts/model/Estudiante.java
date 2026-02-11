@@ -2,6 +2,7 @@ package com.carlos.hogwarts.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -50,7 +52,6 @@ public class Estudiante {
     @JsonManagedReference
     private Mascota mascota;
 
-    @ManyToMany(mappedBy = "estudiantes")
-    @JsonIgnore
-    private List<Asignatura> asignaturas;
+    @OneToMany(mappedBy = "estudiante")
+    private List<EstudianteAsignatura> calificaciones;
 }
