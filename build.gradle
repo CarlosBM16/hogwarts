@@ -39,6 +39,10 @@ dependencies {
     // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation platform('org.testcontainers:testcontainers-bom:2.0.2') //import bom
+    testImplementation('org.testcontainers:testcontainers-mysql') //no version specified
+
 }
 
 tasks.named('test') {

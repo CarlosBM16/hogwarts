@@ -13,5 +13,5 @@ public class EstudianteDTO {
     private LocalDate fechaNacimiento;
     private String casa;
     private MascotaDTO mascota;
-    private List<AsignaturaDTO> asignaturas;
+    private List<EstudianteAsignaturaDTO> asignaturas;
 }

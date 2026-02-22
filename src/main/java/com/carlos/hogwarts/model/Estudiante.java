@@ -3,10 +3,7 @@ package com.carlos.hogwarts.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.hibernate.annotations.SoftDelete;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -16,8 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -25,7 +22,6 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "estudiante")
-@SoftDelete
 public class Estudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +49,6 @@ public class Estudiante {
     @JsonManagedReference
     private Mascota mascota;
 
-    @ManyToMany(mappedBy = "estudiantes")
-    @JsonIgnore
-    private List<Asignatura> asignaturas;
+    @OneToMany(mappedBy = "estudiante")
+    private List<EstudianteAsignatura> calificaciones;
 }

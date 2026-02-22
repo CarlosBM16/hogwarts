@@ -28,6 +28,7 @@ public class EstudianteServiceImpl implements EstudianteService {
     private final MascotaMapper mascotaMapper;
 
     @Override
+    @Transactional
     public List<EstudianteDTO> obtenerTodos() {
         return estudianteRepository.findAll()
             .stream()

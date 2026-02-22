@@ -1,7 +1,5 @@
 package com.carlos.hogwarts.model;
 
-import org.hibernate.annotations.SoftDelete;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -19,7 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @Entity
 @Table(name = "mascota")
-@SoftDelete
 public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
