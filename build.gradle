@@ -19,30 +19,28 @@ repositories {
 }
 
 dependencies {
-    // Core Starter para Web y Datos
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-validation' // <--- ESTA ES
-    // Base de datos (PostgreSQL)
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
     runtimeOnly 'org.postgresql:postgresql'
 
-    // Herramientas de desarrollo
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // Lombok (Configuración completa para Gradle)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
 
-    // Testing
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-jdbc-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testImplementation 'com.h2database:h2'
 
-    implementation platform('org.testcontainers:testcontainers-bom:2.0.2') //import bom
-    testImplementation('org.testcontainers:testcontainers-mysql') //no version specified
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation 'org.testcontainers:testcontainers-postgresql'
 
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
 }
 
 tasks.named('test') {

@@ -5,10 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "estudiante_asignatura")
 public class EstudianteAsignatura {
     @EmbeddedId
     private EstudianteAsignaturaKey id;
